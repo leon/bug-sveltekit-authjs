@@ -1,38 +1,30 @@
 # create-svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+auth.js adds this as typings for PageData
+this causes typescript to error out
 
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+```ts
+export declare function SvelteKitAuth(
+	options: SvelteKitAuthConfig | DynamicSvelteKitAuthConfig
+): Handle;
+declare global {
+	namespace App {
+		interface Locals {
+			getSession(): Promise<Session | null>;
+		}
+		interface PageData {
+			session: Session | null;
+		}
+	}
+}
 ```
 
-## Developing
+when writing load functions like this
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+```ts
+export const load = (async () => {
+	return {};
+}) satisfies PageServerLoad;
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+we need to make session optional in the interface
