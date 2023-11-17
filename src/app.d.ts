@@ -2,10 +2,10 @@
 // for information about these interfaces
 declare global {
 	namespace App {
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
-		// interface Platform {}
+		// FIX, by making session optional, we can now satisfy the PageServerLoad type
+		// interface PageData {
+		// 	session?: Session | null;
+		// }
 	}
 }
 
